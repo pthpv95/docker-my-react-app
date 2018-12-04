@@ -4,59 +4,91 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { getQueryStringParams, formatTime } from "../../utils";
 
 const url =
-  process.env.NODE_ENV !== "production"
-    ? "https://immense-refuge-88531.herokuapp.com/"
+  process.env.NODE_ENV === "production"
+    ? "https://node-chat-server-by-lee.herokuapp.com/"
     : "http://localhost:3000";
 
 const socket = io(url);
 
 function JoinRoom(props) {
+  const [rooms, updateRooms] = useState([]);
   const [field, onFieldChange] = useState({
     name: "",
     room: ""
   });
 
+  function onChangeRoom(value) {
+    onFieldChange({
+      ...field,
+      room: value
+    });
+  }
+  useEffect(() => {
+    socket.on("updateRoomList", roomList => {
+      console.log(roomList)
+      
+      updateRooms(roomList);
+    });
+  }, rooms);
+
   function handleSubmit() {
-    props.history.push(`/chat/room?name=${field.name}&room=${field.room}`);
+    window.location.href = `/chat/room?name=${field.name}&room=${field.room}`;
+    // props.history.push(`/chat/room?name=${field.name}&room=${field.room}`);
   }
 
   return (
     <div className="centered-form__form">
-      <div className="form-field">
-        <h3>Join a chat</h3>
-      </div>
-      <div className="form-field">
-        <label>Display name:</label>
-        <input
-          type="text"
-          name="name"
-          autoFocus
-          value={field["name"].value}
-          onChange={e =>
-            onFieldChange({
-              ...field,
-              name: e.target.value
-            })
-          }
-        />
-      </div>
-      <div className="form-field">
-        <label>Room name:</label>
-        <input
-          type="text"
-          name="room"
-          value={field["room"].value}
-          onChange={e =>
-            onFieldChange({
-              ...field,
-              room: e.target.value
-            })
-          }
-        />
-      </div>
-      <div className="form-field">
-        <button onClick={handleSubmit}>Join</button>
-      </div>
+      <form action={`/chat/room?name=${field.name}&room=${field.room}`}>
+        <div className="form-field">
+          <h3>Join a chat</h3>
+        </div>
+        <div className="form-field">
+          <label>Display name:</label>
+          <input
+            type="text"
+            name="name"
+            autoFocus
+            value={field.name}
+            onChange={e =>
+              onFieldChange({
+                ...field,
+                name: e.target.value
+              })
+            }
+          />
+        </div>
+        <div className="form-field">
+          <label>Room name:</label>
+          <input
+            type="text"
+            name="room"
+            value={field.room}
+            onChange={e =>
+              onFieldChange({
+                ...field,
+                room: e.target.value
+              })
+            }
+          />
+          {rooms.length > 0 && (
+            <select
+              onChange={e => onChangeRoom(e.target.value)}
+              value={field.room}
+            >
+              {rooms.map(item => {
+                return (
+                  <option key={item.id} value={item.name}>
+                    {item.name}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+        </div>
+        <div className="form-field">
+          <button>Join</button>
+        </div>
+      </form>
     </div>
   );
 }

@@ -3,13 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "react": "16.7.0-alpha.2 - next",
     "react-dom": "16.7.0-alpha.2 - next",
+    "react-redux": "5.1.1",
     "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "2.0.3",
     "reactstrap": "^6.5.0",
+    "redux": "4.0.1",
+    "redux-immutable": "^4.0.0",
+    "redux-saga": "0.16.2",
     "socket.io-client": "^2.2.0"
   },
   "scripts": {

@@ -3,15 +3,17 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ReactHookExample } from "./components/Hooks";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import ChatApp from "./modules/Chat";
 
-// const socketClient = socketIOClient("http://localhost:3000");
+const socket = io("http://localhost:3000");
 
 class App extends Component {
   state = {};
   componentDidMount() {
-    // window.socket = socketClient;
+    socket.on("updateRoomList", roomList => {
+      console.log(roomList);
+    });
   }
 
   render() {
