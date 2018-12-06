@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { getQueryStringParams, formatTime } from "../../../utils";
-
-const url =
-  process.env.NODE_ENV === "production"
-    ? "https://node-chat-server-by-lee.herokuapp.com/"
-    : "http://localhost:3000";
-
-const socket = io(url);
+import { SOCKET_IO_SERVER_URL } from "../../../constants";
+const socket = io(SOCKET_IO_SERVER_URL);
 
 function Users({ users }) {
   return (

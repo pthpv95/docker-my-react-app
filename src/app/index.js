@@ -6,8 +6,9 @@ import ChatApp from "../modules/Chat";
 import { connect } from "react-redux";
 import { getOnlineRoomChat } from "./actions";
 import logo from "../logo.svg";
+import { SOCKET_IO_SERVER_URL } from "../constants";
 
-const socket = io("http://localhost:3000");
+const socket = io(SOCKET_IO_SERVER_URL);
 
 const Home = props => {
   return (
