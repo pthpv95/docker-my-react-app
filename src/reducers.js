@@ -27,11 +27,26 @@ export function routeReducer(state = routeInitialState, action) {
   }
 }
 
+const chatInitialState = fromJS({
+  rooms: [],
+  user: {}
+});
+
+export function chatReducer(state = chatInitialState, action) {
+  switch (action.type) {
+    case "UPDATE_CHAT_ROOM_LIST":
+      return state.set("rooms", action.payload);
+    default:
+      return state;
+  }
+}
+
 /**
  * Creates the main reducer with the dynamically injected ones
  */
 export default function createReducer() {
   return combineReducers({
-    route: routeReducer
+    route: routeReducer,
+    chat: chatReducer
   });
 }
