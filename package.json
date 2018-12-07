@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.4",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
+    "path": "^0.12.7",
     "react": "16.7.0-alpha.2 - next",
     "react-dom": "16.7.0-alpha.2 - next",
     "react-redux": "5.1.1",
@@ -20,8 +22,9 @@
     "socket.io-client": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build --prod",
+    "start": "node server.js",
+    "dev:start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
