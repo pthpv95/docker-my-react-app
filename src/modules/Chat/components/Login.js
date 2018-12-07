@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 export function Login(props) {
-  console.log(props)
-  
   const [field, onFieldChange] = useState({
     name: "",
     room: ""
