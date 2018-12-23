@@ -5,7 +5,16 @@ const selectChat = state => state.get("chat");
 const makeGetChatRooms = () =>
   createSelector(
     selectChat,
-    chat => chat.get("rooms")
+    chat => ({
+      rooms: chat.get("rooms"),
+      user: chat.get("user")
+    })
   );
 
-export { makeGetChatRooms };
+const makeGetUser = () =>
+  createSelector(
+    selectChat,
+    chat => chat.get("user")
+  );
+
+export { makeGetChatRooms, makeGetUser, selectChat };

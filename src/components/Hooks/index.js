@@ -38,7 +38,7 @@ function Shadow({ mouse }) {
   return (
     <img
       src={logo}
-      width='30px'
+      width="30px"
       style={{ position: "absolute", left: mouse.x, top: mouse.y }}
     />
   );

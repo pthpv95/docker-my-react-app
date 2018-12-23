@@ -14,7 +14,7 @@ export function Login(props) {
   }
 
   function handleSubmit() {
-    props.history.push(`/chat/room?name=${field.name}&room=${field.room}`);
+    props.history.push(`/apps/chat/room?name=${field.name}&room=${field.room}`);
   }
 
   return (

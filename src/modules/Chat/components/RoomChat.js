@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+import React, { useState, useEffect, useContext } from "react";
 import { getQueryStringParams, formatTime } from "../../../utils";
-import { SOCKET_IO_SERVER_URL } from "../../../constants";
-const socket = io(SOCKET_IO_SERVER_URL);
+import SocketContext from "../../../socket-context";
 
 function Users({ users }) {
   return (
@@ -42,6 +40,7 @@ export function RoomChat(props) {
   const [messages, updateMessage] = useState([]);
   const [users, updateUsers] = useState([]);
   const [text, updateText] = useState("");
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     const params = getQueryStringParams(props.location.search);
@@ -59,6 +58,10 @@ export function RoomChat(props) {
     socket.on("updateUserList", usersList => {
       updateUsers(usersList);
     });
+
+    return function cleeanUP(params) {
+      socket.close();
+    };
   }, messages || users); // Only update state when messages or users have been changed
 
   return (

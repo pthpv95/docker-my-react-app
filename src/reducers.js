@@ -36,6 +36,11 @@ export function chatReducer(state = chatInitialState, action) {
   switch (action.type) {
     case "UPDATE_CHAT_ROOM_LIST":
       return state.set("rooms", action.payload);
+    case "SUBMIT_CURRENT_CHAT_USER":
+      return state.set("user", {
+        name: action.payload.name,
+        room: action.payload.room
+      });
     default:
       return state;
   }
