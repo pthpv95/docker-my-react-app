@@ -1,30 +1,9 @@
 import React from "react";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import { makeGetChatRooms } from "./selector";
-import { createSelector } from "reselect";
-import { RoomList } from "./components/RoomList";
 import { RoomChat } from "./components/RoomChat";
 import { Login } from "./components/Login";
-import { submitUserInfo } from "./actions";
-
-const mapStateToProps = createSelector(
-  makeGetChatRooms(),
-  chat => ({
-    rooms: chat.rooms,
-    user: chat.user
-  })
-);
-
-const mapDispatchToProps = dispatch => ({
-  submitUserInfo: (name, room) => dispatch(submitUserInfo(name, room))
-});
-
-const RoomListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RoomList);
+import RoomListContainer from "./components/RoomList";
 
 export default () => {
   return (

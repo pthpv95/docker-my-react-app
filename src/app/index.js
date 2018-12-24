@@ -35,18 +35,7 @@ const MyApps = props => {
 };
 
 class App extends Component {
-  state = {};
-  // componentDidMount() {
-  //   this.socket = io(SOCKET_IO_SERVER_URL);
-  //   this.socket.on("updateRoomList", roomList => {
-  //     this.props.dispatch(getOnlineRoomChat(roomList));
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.socket.close();
-  // }
-
+ 
   render() {
     return (
       <SocketContext.Provider value={socket}>

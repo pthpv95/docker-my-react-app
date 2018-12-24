@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import SocketContext from "../../../socket-context";
+import { getOnlineRoomChat } from "../../../app/actions";
+import { connect } from "react-redux";
+import { makeGetChatRooms } from "../selector";
+import { createSelector } from "reselect";
+import { submitUserInfo } from "../actions";
 
 const Room = ({ room, onJoinRoom }) => {
   return (
@@ -21,6 +27,14 @@ export const RoomList = props => {
     props.history.push(`/apps/chat/join`);
     // props.submitUserInfo(room.name, "");
   }
+
+  const socket = useContext(SocketContext);
+  useEffect(() => {
+    socket.on("updateRoomList", roomList => {
+      props.getOnlineRoomChat(roomList);
+    });
+  });
+
   return (
     <div className="room_list">
       {props.rooms.length > 0 ? (
@@ -46,3 +60,21 @@ export const RoomList = props => {
     </div>
   );
 };
+
+const mapStateToProps = createSelector(
+  makeGetChatRooms(),
+  chat => ({
+    rooms: chat.rooms,
+    user: chat.user
+  })
+);
+
+const mapDispatchToProps = dispatch => ({
+  submitUserInfo: (name, room) => dispatch(submitUserInfo(name, room)),
+  getOnlineRoomChat: roomList => dispatch(getOnlineRoomChat(roomList))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoomList);
