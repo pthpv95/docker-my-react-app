@@ -42,6 +42,23 @@ export function RoomChat(props) {
   const [text, updateText] = useState("");
   const socket = useContext(SocketContext);
 
+  function scrollToBottom() {
+    //selectors
+    var messages = document.getElementById("messages");
+    // var newMessage = messages.children("li:last-child");
+    // var clientHeight = messages.prop("clientHeight");
+    // var scrollTop = messages.prop("scrollTop");
+
+    // // Heights
+    // var scrollHeight = messages.prop("scrollHeight"); // heightest scroll value
+    // var newMessageHeight = newMessage.innerHeight();
+    // var lastMessageHeight = newMessage.prev().innerHeight();
+
+    if (messages.scrollHeight > messages.clientHeight) {
+      messages.scrollTop = messages.scrollHeight;
+    }
+  }
+
   useEffect(() => {
     const params = getQueryStringParams(props.location.search);
     socket.emit("join", params, err => {
@@ -91,7 +108,10 @@ export function RoomChat(props) {
                     from: "user",
                     text: text
                   },
-                  () => updateText("")
+                  () => {
+                    updateText("");
+                    scrollToBottom();
+                  }
                 );
               }}
             >

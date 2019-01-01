@@ -15,6 +15,14 @@ const socket = io(SOCKET_IO_SERVER_URL);
 const Home = props => {
   return (
     <div>
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">
+          {/* Welcome to my showcases. This is the place that I'm gonna put
+              everything I learn things related to React . */}
+          React playgrounds
+        </h1>
+      </header>
       <h3>Hello world!</h3>
       <Link to={"/apps"}>
         <strong>My apps</strong>
@@ -35,21 +43,11 @@ const MyApps = props => {
 };
 
 class App extends Component {
- 
   render() {
     return (
       <SocketContext.Provider value={socket}>
         <Router>
           <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">
-                {/* Welcome to my showcases. This is the place that I'm gonna put
-              everything I learn things related to React . */}
-                React playgrounds
-              </h1>
-            </header>
-
             <p className="App-intro" />
             <Route exact path={"/"} component={Home} />
             <Route path={"/apps"} component={MyApps} />
