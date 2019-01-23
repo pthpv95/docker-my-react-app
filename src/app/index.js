@@ -3,29 +3,20 @@ import "../App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ChatApp from "../modules/Chat";
 import { connect } from "react-redux";
-import { getOnlineRoomChat } from "./actions";
 import logo from "../logo.svg";
 import { SOCKET_IO_SERVER_URL } from "../constants";
 
 import SocketContext from "../socket-context";
 import * as io from "socket.io-client";
+import Home from "../components/Home";
 
 const socket = io(SOCKET_IO_SERVER_URL);
 
-const Home = props => {
+const About = props => {
   return (
     <div>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">
-          {/* Welcome to my showcases. This is the place that I'm gonna put
-              everything I learn things related to React . */}
-          React playgrounds
-        </h1>
-      </header>
-      <h3>Hello world!</h3>
-      <Link to={"/apps"}>
-        <strong>My apps</strong>
+      <Link to={"/about"}>
+        <strong>About</strong>
       </Link>
     </div>
   );
@@ -36,6 +27,7 @@ const MyApps = props => {
     <div>
       <h3>My apps</h3>
       <Link to={"/apps/chat"}>
+        <img src={logo} height={"40px"} width={"40px"} />
         <strong>Chat app</strong>
       </Link>
     </div>
@@ -50,8 +42,8 @@ class App extends Component {
           <div className="App">
             <p className="App-intro" />
             <Route exact path={"/"} component={Home} />
-            <Route path={"/apps"} component={MyApps} />
-            <Route path={"/apps/chat"} component={ChatApp} />
+            <Route exact path={"/my-work"} component={MyApps} />
+            <Route path={"/apps"} component={ChatApp} />
           </div>
         </Router>
       </SocketContext.Provider>

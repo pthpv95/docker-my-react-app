@@ -63,7 +63,9 @@ export function RoomChat(props) {
     const params = getQueryStringParams(props.location.search);
     socket.emit("join", params, err => {
       if (err) {
-        window.location.href = "/chat";
+        console.log(err)
+        
+        // window.location.href = "/chat";
       }
     });
     socket.on("newMessage", result => {
@@ -76,7 +78,7 @@ export function RoomChat(props) {
       updateUsers(usersList);
     });
 
-    return function cleeanUP(params) {
+    return function cleanUP(params) {
       socket.close();
     };
   }, messages || users); // Only update state when messages or users have been changed
