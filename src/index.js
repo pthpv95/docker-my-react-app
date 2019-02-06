@@ -10,7 +10,10 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000"
+  uri: "https://lee-graphql-blogging-server.herokuapp.com/",
+  headers: {
+    authorization: `Bearer ${localStorage.getItem("token")}`
+  }
 });
 
 const history = createHistory();

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import logo from "../logo.svg";
 import Home from "../components/Home";
 import { PostList, Post } from "../modules/Posts";
-
+import Login from "../components/Login";
 
 import SocketContext from "../socket-context";
 
@@ -28,7 +28,10 @@ const About = props => {
 const MyApps = props => {
   return (
     <div>
-      <h3>My apps</h3><span><img src={logo} height={"40px"} width={"40px"} /></span>
+      <h3>My apps</h3>
+      <span>
+        <img src={logo} height={"40px"} width={"40px"} />
+      </span>
       <ul>
         <li>
           <a href={"/apps/chat"}>
@@ -58,6 +61,7 @@ class App extends Component {
             <Route exact path={"/apps/posts"} component={PostList} />
             <Route path={"/apps/post/:postId"} component={Post} />
             <Route path={"/apps"} component={ChatApp} />
+            <Route path={"/login"} component={Login} />
           </div>
         </Router>
       </SocketContext.Provider>
