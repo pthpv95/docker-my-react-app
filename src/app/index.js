@@ -3,14 +3,15 @@ import React, { Component } from "react";
 import "../App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ChatApp from "../modules/Chat";
-import { connect } from "react-redux";
+
 import logo from "../logo.svg";
 import Home from "../components/Home";
 import { PostList, Post } from "../modules/Posts";
 import Login from "../components/Login";
+import Navbar from "../components/Navbar";
 
 import SocketContext from "../socket-context";
-
+import InfiniteUsers from '../modules/Todo/index'
 import * as io from "socket.io-client";
 import { SOCKET_IO_SERVER_URL } from "../constants";
 const socket = io(SOCKET_IO_SERVER_URL);
@@ -50,16 +51,19 @@ const MyApps = props => {
 };
 
 class App extends Component {
+  state = { isAuthenticated: true };
+  componentDidMount() {}
+
   render() {
     return (
       <SocketContext.Provider value={socket}>
         <Router>
           <div className="App">
-            <Route exact path={"/"} component={Home} />
-            <Route exact path={"/my-work"} component={MyApps} />
-            <Route exact path={"/about"} component={About} />
-            <Route exact path={"/apps/posts"} component={PostList} />
-            <Route path={"/apps/post/:postId"} component={Post} />
+            {this.state.isAuthenticated && <Navbar />}
+            <Route exact path={"/home"} component={Home} />
+            <Route exact path={"/about"} component={InfiniteUsers} />
+            <Route exact path={"/posts"} component={PostList} />
+            <Route path={"/post/:postId"} component={Post} />
             <Route path={"/apps"} component={ChatApp} />
             <Route path={"/login"} component={Login} />
           </div>
@@ -69,4 +73,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default App;

@@ -29,18 +29,25 @@ const GET_COMMENTS_BY_POST = gql`
       after: $after
       orderBy: createdAt_DESC
     ) {
-      id
-      text
-      author {
-        id
-        name
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          text
+          author {
+            id
+            name
+          }
+        }
       }
     }
   }
 `;
 
 const CommentsList = ({ postId, isRefetch }) => {
-  let commentsTemp = [];
   return (
     <div>
       <Query
@@ -49,18 +56,17 @@ const CommentsList = ({ postId, isRefetch }) => {
         variables={{ postId, first: 5 }}
       >
         {({ loading, error, data, refetch, fetchMore }) => {
-          commentsTemp = data.comments;
           if (loading) return <p>Loading ... </p>;
           if (error) return <p>ERROR</p>;
           if (isRefetch) refetch();
           return (
             <div>
               {data.comments &&
-                data.comments.map((item, index) => (
+                data.comments.edges.map(({ node }, index) => (
                   <CommentStyle key={index}>
-                    <div className="comment-author">{item.author.name}</div>
+                    <div className="comment-author">{node.author.name}</div>
                     <div className="comment-text">
-                      <strong>{item.text}</strong>
+                      <strong>{node.text}</strong>
                     </div>
                     <Mutation
                       mutation={REMOVE_COMMENT}
@@ -76,7 +82,7 @@ const CommentsList = ({ postId, isRefetch }) => {
                           <div
                             className="delete-comment"
                             onClick={() =>
-                              deleteComment({ variables: { id: item.id } })
+                              deleteComment({ variables: { id: node.id } })
                             }
                           >
                             <i className="fas fa-minus-circle" />
@@ -87,31 +93,36 @@ const CommentsList = ({ postId, isRefetch }) => {
                   </CommentStyle>
                 ))}
 
-              <a
-                href="#"
-                onClick={() => {
-                  fetchMore({
-                    query: GET_COMMENTS_BY_POST,
-                    variables: {
-                      postId,
-                      first: 5,
-                      after: commentsTemp[commentsTemp.length - 1].id
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (fetchMoreResult.length === 0) return prev;
-                      commentsTemp = fetchMoreResult.comments;
-                      return {
-                        comments: [
-                          ...prev.comments,
-                          ...fetchMoreResult.comments
-                        ]
-                      };
-                    }
-                  });
-                }}
-              >
-                View more comments
-              </a>
+              {data.comments && data.comments.pageInfo.hasNextPage && (
+                <a
+                  href="#"
+                  onClick={() => {
+                    fetchMore({
+                      query: GET_COMMENTS_BY_POST,
+                      variables: {
+                        postId,
+                        first: 5,
+                        after: data.comments.pageInfo.endCursor
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (fetchMoreResult.comments.edges.length === 0)
+                          return prev;
+                        const temp = {
+                          ...fetchMoreResult
+                        };
+
+                        temp.comments.edges = fetchMoreResult.comments.edges.concat(
+                          prev.comments.edges
+                        );
+
+                        return temp;
+                      }
+                    });
+                  }}
+                >
+                  View more comments
+                </a>
+              )}
             </div>
           );
         }}

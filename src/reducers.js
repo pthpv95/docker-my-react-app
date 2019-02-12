@@ -4,7 +4,7 @@
 
 import { fromJS } from "immutable";
 import { combineReducers } from "redux-immutable";
-
+import postsReducers from "./modules/Posts/reducers";
 // import globalReducer from 'containers/App/reducer';
 
 /*
@@ -46,12 +46,26 @@ export function chatReducer(state = chatInitialState, action) {
   }
 }
 
+const uiInitState = fromJS({
+  loading: false
+});
+const uiReducer = (state = uiInitState, action) => {
+  switch (action.type) {
+    case "UPDATE_LOADING_STATUS":
+      return state.set("loading", action.payload);
+    default:
+      return state;
+  }
+};
+
 /**
  * Creates the main reducer with the dynamically injected ones
  */
 export default function createReducer() {
   return combineReducers({
     route: routeReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    posts: postsReducers,
+    ui: uiReducer
   });
 }
