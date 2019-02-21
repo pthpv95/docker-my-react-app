@@ -1,18 +1,24 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Comment from "./CommentBox";
+import React, { useState } from "react"
+import styled from "styled-components"
+import Comment from "./Comments"
 
 const Post = ({ id, title, body }) => {
-  const [isToggle, toggleCommentBox] = useState(false);
+  const [isToggle, toggleCommentBox] = useState(false)
   return (
     <PostWrapper>
       <h3>{title}</h3>
       <h5>{body}</h5>
-      <p onClick={e => toggleCommentBox(!isToggle)}>Comments</p>
-      {isToggle && <Comment postId={id} />}
+      <p
+        onClick={e => {
+          toggleCommentBox(!isToggle)
+        }}
+      >
+        Comments
+      </p>
+      {isToggle && <Comment postId={id} isToggle={isToggle} />}
     </PostWrapper>
-  );
-};
+  )
+}
 
 const PostWrapper = styled.div`
   display: flex;
@@ -32,6 +38,9 @@ const PostWrapper = styled.div`
   h5 {
     padding: 10px;
   }
-`;
+  h3 {
+    color: lightblue;
+  }
+`
 
-export default Post;
+export default Post

@@ -9,33 +9,33 @@ import configureStore from "./configureStore";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider, withApollo } from "react-apollo";
 
-const client = new ApolloClient({
-  uri: "https://lee-graphql-blogging-server.herokuapp.com/",
-  headers: {
-    authorization: `Bearer ${localStorage.getItem("token")}`
-  }
-});
-const AppWithClient = withApollo(App);
+// const client = new ApolloClient({
+//   uri: "https://lee-graphql-blogging-server.herokuapp.com/",
+//   headers: {
+//     authorization: `Bearer ${localStorage.getItem("token")}`
+//   }
+// });
+// const AppWithClient = withApollo(App);
 const history = createHistory();
 const store = configureStore({}, history);
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  // <ApolloProvider client={client}>
     <Provider store={store}>
-      <AppWithClient />
-    </Provider>
-  </ApolloProvider>,
+      <App />
+    </Provider>,
+  // </ApolloProvider>,
   document.getElementById("root")
 );
 
 if (module.hot) {
   module.hot.accept("./app/index", () => {
     ReactDOM.render(
-      <ApolloProvider client={client}>
+      // <ApolloProvider client={client}>
         <Provider store={store}>
           <App />
-        </Provider>
-      </ApolloProvider>,
+        </Provider>,
+      // </ApolloProvider>,
       document.getElementById("root")
     );
   });
