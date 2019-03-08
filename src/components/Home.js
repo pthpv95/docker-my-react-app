@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const Home = props => {
+  console.log(props)
+  
   return (
     <div>
       <strong>Hello world.</strong>
