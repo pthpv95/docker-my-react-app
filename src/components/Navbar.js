@@ -2,18 +2,21 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 
 class Navbar extends Component {
+  state = {
+    isToggle: false
+  }
   render() {
     return (
       <div>
         <nav className="navbar">
-          <span className="navbar-toggle" id="js-navbar-toggle">
+          <span className="navbar-toggle" id="js-navbar-toggle" onClick={()=>this.setState({isToggle:!this.state.isToggle})}>
             <i className="fas fa-bars" />
           </span>
           <a className="logo" onClick={() => this.props.history.push("/")}>
             (.)(.)
           </a>
           <ul
-            className="main-nav"
+            className={`main-nav ${this.state.isToggle ? 'active': ''}`}
             id="js-menu"
             onClick={e => {
               e.preventDefault();
@@ -21,7 +24,7 @@ class Navbar extends Component {
             }}
           >
             <li>
-              <a href="#" className="nav-links" id="nav-home">
+              <a href="#" className="nav-links" id="">
                 Home
               </a>
             </li>

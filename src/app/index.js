@@ -60,7 +60,7 @@ class App extends Component {
         <Router>
           <div className="App">
             {this.state.isAuthenticated && <Navbar />}
-            <Route exact path={"/home"} component={Home} />
+            <Route exact path={"/"} component={Home} />
             <Route exact path={"/about"} component={InfiniteUsers} />
             <Route exact path={"/posts"} component={PostList} />
             <Route path={"/post/:postId"} component={Post} />
