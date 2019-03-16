@@ -28,7 +28,7 @@ export const Login = props => {
   function handleJoinRoom(room) {
     props.submitUserInfo(room, props.user.name);
     props.history.push(
-      `/apps/chat/room?name=${props.user.name}&room=${room.name}`
+      `/chat/room?name=${props.user.name}&room=${room.name}`
     );
   }
 

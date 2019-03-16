@@ -7,9 +7,9 @@ import LoginContainer from "./components/Login";
 export default () => {
   return (
     <div>
-      <Route exact path={"/apps/chat"} component={LoginContainer} />
-      <Route exact path={"/apps/chat/join"} component={CreateRoom} />
-      <Route exact path={"/apps/chat/room"} component={RoomChat} />
+      <Route exact path={"/chat"} component={LoginContainer} />
+      <Route exact path={"/chat/join"} component={CreateRoom} />
+      <Route exact path={"/chat/room"} component={RoomChat} />
     </div>
   );
 };

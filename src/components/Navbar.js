@@ -34,6 +34,11 @@ class Navbar extends Component {
               </a>
             </li>
             <li>
+              <a href="#" className="nav-links" id="nav-chat">
+                Chat
+              </a>
+            </li>
+            <li>
               <a href="#" className="nav-links" id="nav-about">
                 About me
               </a>

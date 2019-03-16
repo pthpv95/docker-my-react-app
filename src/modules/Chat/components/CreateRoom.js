@@ -5,16 +5,6 @@ export function CreateRoom(props) {
     name: "",
     room: ""
   });
-
-  // function onChangeRoom(value) {
-  //   onFieldChange({
-  //     ...field,
-  //     room: value
-  //   });
-  // }
-
-  // function handleSubmit() {}
-
   useEffect(() => {
     if (props.user && CreateRoom === undefined)
       window.location.href = "/apps/chat";
@@ -45,7 +35,7 @@ export function CreateRoom(props) {
               e.preventDefault();
               props.submitUserInfo(props.user.name, field.room);
               props.history.push(
-                `/apps/chat/room?name=${props.user.name}&room=${field.room}`
+                `/chat/room?name=${props.user.name}&room=${field.room}`
               );
             }}
           >
