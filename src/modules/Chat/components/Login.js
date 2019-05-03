@@ -44,7 +44,7 @@ export const Login = props => {
       {props.user.name ? (
         <div>
           <RoomList handleJoinRoom={handleJoinRoom} rooms={props.rooms} />
-          <CreateRoom {...props} />
+          {/* <CreateRoom {...props} /> */}
         </div>
       ) : (
         <Formik

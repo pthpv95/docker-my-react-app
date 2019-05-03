@@ -40,6 +40,14 @@ const MyApps = props => {
 
 class App extends Component {
   state = { isAuthenticated: true }
+  // componentDidMount() {
+  //   const user = {
+  //     id: "6322ef10-9137-4973-8633-d9131c85e110",
+  //     name: "james"
+  //   }
+  //   localStorage.setItem('user', user)
+  // }
+
   render() {
     return (
       <SocketContext.Provider value={socket}>
